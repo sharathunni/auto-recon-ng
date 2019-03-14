@@ -11,7 +11,7 @@ AUTO RECON-NG - Automated script to run all modules for a specified list of doma
 
   -h, --help            show this help message and exit
   
-  -w WORKSPACE, --workspace WORKSPACE Workspace name
+  -w, --workspace WORKSPACE Workspace name
   
   -i FILENAME           Set the recon-ng source using this list
   
