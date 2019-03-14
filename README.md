@@ -5,8 +5,6 @@ AUTO RECON-NG - Automated script to run all modules for a specified list of doma
 
 **Source:** https://bitbucket.org/LaNMaSteR53/recon-ng
 
-**Author:** Sharath Unni <h4xorhead@gmail.com>
-
 **Usage:** auto_recon-ng.py [-h] -w WORKSPACE [-i FILENAME] [-m MODULENAME] [-company DBNAME1] [-domain DBNAME2] [-netblock DBNAME3]
 
 **Optional arguments:**
