@@ -24,7 +24,7 @@ AUTO RECON-NG - Automated script to run all modules for a specified list of doma
   -netblock DBNAME3     Specify the file containing netblocks
   
 **Example:**
-python auto-recon-ng -w tjx_recon_2018 -m modules.txt -domain domains.txt
+python auto-recon-ng -w recon_2018 -m modules.txt -domain domains.txt
 
 ---------------------------------------------------------------------------------------------------------------
 **Setting up Auto-recon-ng for sub-domain enumeration:**
