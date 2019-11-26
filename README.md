@@ -33,8 +33,11 @@ python auto-recon-ng -w recon_2018 -m modules.txt -domain domains.txt
 1.	Add API keys to Recon-ng:
 
 i.	Launch recon-ng
+
 ii.	Run the command keys list to view all the existing keys
+
 iii.	Add new API key using the command: keys add shodan_api <paste_key_here>
+
 iv.	Run keys list again and confirm that the keys were added
 
 2.	List of API keys to be added for sub-domain enumeration:
