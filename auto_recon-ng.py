@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # Author: Sharath Unni
 # Date: 04/02/2018
@@ -17,14 +17,14 @@ import time
 
 def _reconsetup():
 
-	print "\n"
-	print "---------------------------------------------------------------------------------------------------------------"
-	print "AUTO RECON-NG - Automated script to run all modules for a specified list of domains, netblocks or company name"
-	print "---------------------------------------------------------------------------------------------------------------"
-	print "\n"
-	print "Source: https://bitbucket.org/LaNMaSteR53/recon-ng"
-    	print "Author: Sharath Unni <h4xorhead@gmail.com>"
-	print "\n"
+	print("\n")
+	print("---------------------------------------------------------------------------------------------------------------")
+	print("AUTO RECON-NG - Automated script to run all modules for a specified list of domains, netblocks or company name")
+	print("---------------------------------------------------------------------------------------------------------------")
+	print("\n")
+	print("Source: https://bitbucket.org/LaNMaSteR53/recon-ng")
+	print("Author: Sharath Unni <h4xorhead@gmail.com>")
+	print("\n")
 	wspace = "-w"
 
 	parser = argparse.ArgumentParser()
@@ -54,7 +54,7 @@ def _reconsetup():
 		domainList = lines
 	else:
 		domainList = None
-		print "Domain file not specified, recon-ng will run with existing database"
+		print("Domain file not specified, recon-ng will run with existing database")
 
 	if args.modulename:
 		lines2 = args.modulename.readlines()
@@ -62,18 +62,19 @@ def _reconsetup():
 		moduleList = lines2
 	else:
 		moduleList = None
-
-        if domainList is not None:
-                for src in domainList:
-                        for mod in moduleList:
+	for mod in moduleList:
+		proc = subprocess.call(["recon-cli", wspace, "-C marketplace install "+mod ,"-x"])
+	if domainList is not None:
+		for src in domainList:
+			for mod in moduleList:
 				_reconmod(wspace,mod,src)
-        else:
-        	print "No sources specified, recon-ng will run with the default settings!" 
+	else:
+		print("No sources specified, recon-ng will run with the default settings!") 
 	if moduleList is not None:
 		for mod in moduleList:
 			_reconmod(wspace,mod,"default")
-		else:
-			print "No modules specified, recon-ng report is being generated!"
+	else:
+		print("No modules specified, recon-ng report is being generated!")
 
 	_reportgen(wspace)
 
@@ -83,7 +84,7 @@ def _reconmod(wspace,mod,src):
 		srcarg = "-o source=" + src
 		proc = subprocess.call(["recon-cli", wspace, modarg, srcarg,"-x"])
 	else:
-		print "No modules specified, recon-ng report for the current workspace is being generated!"
+		print("No modules specified, recon-ng report for the current workspace is being generated!")
 
 def _reportgen(wspace):
 	report_list = ["reporting/csv", "reporting/html", "reporting/json", "reporting/list", "reporting/xlsx", "reporting/xml"]
@@ -108,18 +109,18 @@ def _readfile(dbname):
 		dblist = None
 
 def _db_companies(dblist,wspace):
-	print "Loading database with companies"
+	print("Loading database with companies")
 	for i in dblist:
-		proc = subprocess.call(["recon-cli", wspace, "-C query insert into companies (company) values ('" + i + "');" ,"-x"])
+		proc = subprocess.call(["recon-cli", wspace, "-C db query insert into companies (company) select '" + i + "' where not exists (select 1 from comapnies where company='"+ i +"');" ,"-x"])
 
 def _db_domains(dblist,wspace):
 	for i in dblist:
-        	proc = subprocess.call(["recon-cli", wspace, "-C query insert into domains (domain) values ('" + i + "');" ,"-x"])
+            proc = subprocess.call(["recon-cli", wspace, "-C db query insert into domains (domain) select '" + i + "' where not exists (select 1 from domains where domain='"+ i +"');" ,"-x"])
 
 def _db_netblocks(dblist,wspace):
 	for i in dblist:
-        	proc = subprocess.call(["recon-cli", wspace, "-C query insert into netblocks (netblock) values ('" + i + "');" ,"-x"])
+		proc = subprocess.call(["recon-cli", wspace, "-C db query insert into netblocks (netblock) select '" + i + "' where not exists (select 1 from netblocks where netblock='"+ i +"');" ,"-x"])
 
 if __name__== "__main__":
 
-	 _reconsetup()
+	_reconsetup()
